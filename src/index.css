@@ -1,0 +1,489 @@
+/* ============================
+   ESTILOS PROFESIONALES MÉDICOS
+   ============================ */
+
+/* Variables CSS personalizadas */
+:root {
+  --primary-color: #2d7bb8;
+  --secondary-color: #4ecdc4;
+  --success-color: #28a745;
+  --warning-color: #ffc107;
+  --danger-color: #dc3545;
+  --info-color: #17a2b8;
+  --orange-color: #fd7e14;
+  --light-gray: #f8f9fa;
+  --border-color: #dee2e6;
+  --shadow-sm: 0 0.125rem 0.25rem rgba(0, 0, 0, 0.075);
+  --shadow-lg: 0 1rem 3rem rgba(0, 0, 0, 0.175);
+  --border-radius: 0.5rem;
+  --transition: all 0.3s ease;
+}
+
+/* Gradientes profesionales */
+.bg-gradient-primary {
+  background: linear-gradient(135deg, var(--primary-color) 0%, #1e5f8b 100%);
+}
+
+.bg-gradient-dark {
+  background: linear-gradient(135deg, #343a40 0%, #1a1d20 100%);
+}
+
+.bg-gradient-warning {
+  background: linear-gradient(135deg, var(--warning-color) 0%, #e0a800 100%);
+}
+
+.bg-gradient-light {
+  background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%);
+}
+
+/* Colores personalizados para badges */
+.bg-orange {
+  background-color: var(--orange-color) !important;
+}
+
+.text-orange {
+  color: var(--orange-color) !important;
+}
+
+.border-orange {
+  border-color: var(--orange-color) !important;
+}
+
+/* Sombras y elevaciones mejoradas */
+.shadow-professional {
+  box-shadow: 0 0.5rem 1rem rgba(0, 0, 0, 0.15), 
+              0 0.125rem 0.25rem rgba(0, 0, 0, 0.075);
+}
+
+.shadow-medical {
+  box-shadow: 0 0.25rem 0.75rem rgba(45, 123, 184, 0.15);
+}
+
+/* Animaciones suaves */
+.fade-in {
+  animation: fadeIn 0.5s ease-in;
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(10px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+.slide-in {
+  animation: slideIn 0.3s ease-out;
+}
+
+@keyframes slideIn {
+  from { transform: translateX(-20px); opacity: 0; }
+  to { transform: translateX(0); opacity: 1; }
+}
+
+/* Botones profesionales mejorados */
+.btn-professional {
+  padding: 0.75rem 1.5rem;
+  font-weight: 600;
+  border-radius: var(--border-radius);
+  transition: var(--transition);
+  box-shadow: var(--shadow-sm);
+}
+
+.btn-professional:hover {
+  transform: translateY(-2px);
+  box-shadow: var(--shadow-lg);
+}
+
+/* Cards médicos profesionales */
+.card-medical {
+  border: none;
+  border-radius: var(--border-radius);
+  box-shadow: var(--shadow-medical);
+  transition: var(--transition);
+}
+
+.card-medical:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 0.5rem 1.5rem rgba(45, 123, 184, 0.2);
+}
+
+.card-header-medical {
+  background: var(--primary-color);
+  color: white;
+  border-radius: var(--border-radius) var(--border-radius) 0 0;
+  padding: 1rem 1.5rem;
+  font-weight: 600;
+}
+
+/* Formularios médicos mejorados */
+.form-control-medical {
+  border: 2px solid var(--border-color);
+  border-radius: var(--border-radius);
+  padding: 0.75rem 1rem;
+  transition: var(--transition);
+  font-size: 0.95rem;
+}
+
+.form-control-medical:focus {
+  border-color: var(--primary-color);
+  box-shadow: 0 0 0 0.2rem rgba(45, 123, 184, 0.25);
+}
+
+.form-label-medical {
+  font-weight: 600;
+  color: #495057;
+  margin-bottom: 0.5rem;
+}
+
+/* Tablas profesionales */
+.table-medical {
+  border-radius: var(--border-radius);
+  overflow: hidden;
+  box-shadow: var(--shadow-sm);
+}
+
+.table-medical thead th {
+  background: var(--primary-color);
+  color: white;
+  font-weight: 600;
+  border: none;
+  padding: 1rem;
+}
+
+.table-medical tbody tr {
+  transition: var(--transition);
+}
+
+.table-medical tbody tr:hover {
+  background-color: rgba(45, 123, 184, 0.05);
+}
+
+/* Badges médicos mejorados */
+.badge-medical {
+  padding: 0.5rem 0.8rem;
+  font-size: 0.75rem;
+  font-weight: 600;
+  border-radius: 0.35rem;
+}
+
+.badge-severity-normal {
+  background-color: var(--success-color);
+  color: white;
+}
+
+.badge-severity-leve {
+  background-color: var(--warning-color);
+  color: #212529;
+}
+
+.badge-severity-moderada {
+  background-color: var(--orange-color);
+  color: white;
+}
+
+.badge-severity-alta {
+  background-color: var(--danger-color);
+  color: white;
+}
+
+/* Canvas de análisis mejorado */
+.analysis-canvas {
+  border: 2px solid var(--border-color);
+  border-radius: var(--border-radius);
+  background: linear-gradient(135deg, #ffffff 0%, #f8f9fa 100%);
+  box-shadow: inset 0 1px 3px rgba(0, 0, 0, 0.1);
+}
+
+/* Indicadores de estado */
+.status-indicator {
+  display: inline-flex;
+  align-items: center;
+  padding: 0.5rem 1rem;
+  border-radius: 2rem;
+  font-weight: 600;
+  font-size: 0.875rem;
+}
+
+.status-success {
+  background-color: rgba(40, 167, 69, 0.1);
+  color: var(--success-color);
+  border: 1px solid rgba(40, 167, 69, 0.2);
+}
+
+.status-warning {
+  background-color: rgba(255, 193, 7, 0.1);
+  color: #856404;
+  border: 1px solid rgba(255, 193, 7, 0.2);
+}
+
+.status-danger {
+  background-color: rgba(220, 53, 69, 0.1);
+  color: var(--danger-color);
+  border: 1px solid rgba(220, 53, 69, 0.2);
+}
+
+.status-info {
+  background-color: rgba(23, 162, 184, 0.1);
+  color: var(--info-color);
+  border: 1px solid rgba(23, 162, 184, 0.2);
+}
+
+/* Progress bars médicos */
+.progress-medical {
+  height: 1rem;
+  border-radius: 0.5rem;
+  background-color: #e9ecef;
+  box-shadow: inset 0 1px 2px rgba(0, 0, 0, 0.1);
+}
+
+.progress-bar-medical {
+  background: linear-gradient(90deg, var(--primary-color) 0%, var(--info-color) 100%);
+  border-radius: 0.5rem;
+  transition: width 0.6s ease;
+}
+
+/* Alerts médicos */
+.alert-medical {
+  border: none;
+  border-radius: var(--border-radius);
+  padding: 1rem 1.5rem;
+  border-left: 4px solid;
+}
+
+.alert-medical-info {
+  background-color: rgba(23, 162, 184, 0.05);
+  border-left-color: var(--info-color);
+  color: #0c5460;
+}
+
+.alert-medical-warning {
+  background-color: rgba(255, 193, 7, 0.05);
+  border-left-color: var(--warning-color);
+  color: #856404;
+}
+
+.alert-medical-success {
+  background-color: rgba(40, 167, 69, 0.05);
+  border-left-color: var(--success-color);
+  color: #155724;
+}
+
+.alert-medical-danger {
+  background-color: rgba(220, 53, 69, 0.05);
+  border-left-color: var(--danger-color);
+  color: #721c24;
+}
+
+/* Iconografía médica */
+.icon-medical {
+  width: 1.5rem;
+  height: 1.5rem;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 0.375rem;
+  margin-right: 0.5rem;
+}
+
+.icon-medical-primary {
+  background-color: rgba(45, 123, 184, 0.1);
+  color: var(--primary-color);
+}
+
+.icon-medical-success {
+  background-color: rgba(40, 167, 69, 0.1);
+  color: var(--success-color);
+}
+
+.icon-medical-warning {
+  background-color: rgba(255, 193, 7, 0.1);
+  color: #856404;
+}
+
+.icon-medical-danger {
+  background-color: rgba(220, 53, 69, 0.1);
+  color: var(--danger-color);
+}
+
+/* Layout médico profesional */
+.medical-layout {
+  background-color: #f8f9fa;
+  min-height: 100vh;
+  padding: 2rem 0;
+}
+
+.medical-container {
+  max-width: 1400px;
+  margin: 0 auto;
+  padding: 0 1rem;
+}
+
+.medical-header {
+  background: linear-gradient(135deg, #ffffff 0%, #f8f9fa 100%);
+  padding: 2rem 0;
+  margin-bottom: 2rem;
+  border-bottom: 3px solid var(--primary-color);
+  box-shadow: var(--shadow-sm);
+}
+
+/* Responsive improvements */
+@media (max-width: 768px) {
+  .card-medical {
+    margin-bottom: 1rem;
+  }
+  
+  .btn-professional {
+    width: 100%;
+    margin-bottom: 0.5rem;
+  }
+  
+  .medical-header {
+    padding: 1rem 0;
+    text-align: center;
+  }
+  
+  .status-indicator {
+    font-size: 0.75rem;
+    padding: 0.375rem 0.75rem;
+  }
+}
+
+/* Print styles para PDF */
+@media print {
+  .no-print {
+    display: none !important;
+  }
+  
+  .card-medical {
+    break-inside: avoid;
+    box-shadow: none;
+    border: 1px solid #ddd;
+  }
+  
+  .page-break {
+    page-break-before: always;
+  }
+}
+
+/* Utilidades adicionales */
+.cursor-pointer {
+  cursor: pointer;
+}
+
+.text-medical-primary {
+  color: var(--primary-color) !important;
+}
+
+.bg-medical-light {
+  background-color: rgba(45, 123, 184, 0.05) !important;
+}
+
+.border-medical {
+  border: 2px solid var(--primary-color) !important;
+}
+
+.rounded-medical {
+  border-radius: var(--border-radius) !important;
+}
+
+/* Loader médico */
+.medical-loader {
+  display: inline-block;
+  width: 2rem;
+  height: 2rem;
+  border: 3px solid rgba(45, 123, 184, 0.3);
+  border-radius: 50%;
+  border-top-color: var(--primary-color);
+  animation: spin 1s ease-in-out infinite;
+}
+
+@keyframes spin {
+  to { transform: rotate(360deg); }
+}
+
+/* Tooltip médico */
+.tooltip-medical {
+  position: relative;
+  display: inline-block;
+}
+
+.tooltip-medical:hover::after {
+  content: attr(data-tooltip);
+  position: absolute;
+  bottom: 125%;
+  left: 50%;
+  transform: translateX(-50%);
+  background-color: rgba(0, 0, 0, 0.8);
+  color: white;
+  padding: 0.5rem;
+  border-radius: 0.25rem;
+  font-size: 0.75rem;
+  white-space: nowrap;
+  z-index: 1000;
+}
+
+/* Estilos para el análisis postural específico */
+.posture-analysis-container {
+  position: relative;
+  background: linear-gradient(135deg, #ffffff 0%, #f8f9fa 100%);
+  border-radius: var(--border-radius);
+  padding: 1rem;
+  box-shadow: var(--shadow-medical);
+}
+
+.keypoint-marker {
+  width: 10px;
+  height: 10px;
+  background: radial-gradient(circle, #ff6b6b 0%, #ee5a52 100%);
+  border: 2px solid white;
+  border-radius: 50%;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
+  position: absolute;
+  transform: translate(-50%, -50%);
+  transition: all 0.3s ease;
+}
+
+.keypoint-marker:hover {
+  transform: translate(-50%, -50%) scale(1.2);
+  z-index: 10;
+}
+
+.skeleton-line {
+  stroke: #4ecdc4;
+  stroke-width: 3;
+  stroke-linecap: round;
+  fill: none;
+  filter: drop-shadow(0 1px 2px rgba(0, 0, 0, 0.2));
+}
+
+.reference-line {
+  stroke: #45b7d1;
+  stroke-width: 1.5;
+  stroke-dasharray: 8 4;
+  opacity: 0.7;
+  fill: none;
+}
+
+/* Estilos para el reporte PDF */
+.pdf-preview {
+  background: white;
+  border: 1px solid var(--border-color);
+  border-radius: var(--border-radius);
+  padding: 2rem;
+  margin: 1rem 0;
+  box-shadow: var(--shadow-medical);
+}
+
+.pdf-header {
+  border-bottom: 3px solid var(--primary-color);
+  padding-bottom: 1rem;
+  margin-bottom: 2rem;
+}
+
+.pdf-section {
+  margin-bottom: 2rem;
+  padding-bottom: 1rem;
+  border-bottom: 1px solid var(--border-color);
+}
+
+.pdf-section:last-child {
+  border-bottom: none;
+}
