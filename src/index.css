@@ -487,3 +487,112 @@
 .pdf-section:last-child {
   border-bottom: none;
 }
+/* Agregar al final de tu archivo src/index.css */
+
+/* Estilos para el color orange que usa el analizador */
+.bg-orange {
+  background-color: #fd7e14 !important;
+}
+
+.text-orange {
+  color: #fd7e14 !important;
+}
+
+.border-orange {
+  border-color: #fd7e14 !important;
+}
+
+.btn-orange {
+  background-color: #fd7e14;
+  border-color: #fd7e14;
+  color: white;
+}
+
+.btn-orange:hover {
+  background-color: #e66a02;
+  border-color: #dc6502;
+  color: white;
+}
+
+.btn-outline-orange {
+  color: #fd7e14;
+  border-color: #fd7e14;
+}
+
+.btn-outline-orange:hover {
+  background-color: #fd7e14;
+  border-color: #fd7e14;
+  color: white;
+}
+
+.alert-orange {
+  color: #833d09;
+  background-color: #fff3e0;
+  border-color: #ffd6a5;
+}
+
+.progress-bar-orange {
+  background-color: #fd7e14;
+}
+
+/* Iconos médicos mejorados para el analizador */
+.icon-medical-orange {
+  background-color: rgba(253, 126, 20, 0.1);
+  color: #fd7e14;
+}
+
+/* Animaciones para el analizador de cadenas */
+.chain-analyzer-card {
+  transition: all 0.3s ease;
+}
+
+.chain-analyzer-card:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 0.75rem 1.5rem rgba(0, 0, 0, 0.15);
+}
+
+.predominance-indicator {
+  animation: pulseGlow 2s ease-in-out infinite alternate;
+}
+
+@keyframes pulseGlow {
+  from {
+    box-shadow: 0 0 5px rgba(45, 123, 184, 0.4);
+  }
+  to {
+    box-shadow: 0 0 20px rgba(45, 123, 184, 0.6);
+  }
+}
+
+/* Estilos específicos para badges de cadenas */
+.chain-badge {
+  font-weight: 600;
+  padding: 0.5rem 0.75rem;
+  border-radius: 0.5rem;
+  font-size: 0.875rem;
+}
+
+.chain-distribution-card {
+  border-radius: 0.75rem;
+  transition: all 0.2s ease;
+}
+
+.chain-distribution-card:hover {
+  transform: scale(1.02);
+  box-shadow: 0 0.25rem 0.75rem rgba(0, 0, 0, 0.1);
+}
+
+/* Responsive adjustments para el analizador */
+@media (max-width: 768px) {
+  .chain-analyzer-card .card-body {
+    padding: 1rem;
+  }
+  
+  .chain-distribution-card {
+    margin-bottom: 1rem;
+  }
+  
+  .predominance-indicator h4 {
+    font-size: 1.25rem;
+  }
+}

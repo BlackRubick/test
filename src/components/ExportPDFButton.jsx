@@ -1,6 +1,262 @@
 import React, { useState } from 'react';
 import { Button } from 'react-bootstrap';
 
+const analyzePosturalChains = (selectedDeviations) => {
+  const deviationToChain = {
+    // CADENA DE FLEXIÓN (RETROPULSADA)
+    'Flexo de rodillas': 'Cadena de Flexión (Retropulsada)',
+    'Sacro vertical y en cifosis': 'Cadena de Flexión (Retropulsada)',
+    'Coxis hacia adentro': 'Cadena de Flexión (Retropulsada)',
+    'Cifosis': 'Cadena de Flexión (Retropulsada)',
+    'Esternón hundido': 'Cadena de Flexión (Retropulsada)',
+    'Inversión de cervicales': 'Cadena de Flexión (Retropulsada)',
+    'Retroversión pélvica': 'Cadena de Flexión (Retropulsada)',
+    'Rotación interna de cadera': 'Cadena de Flexión (Retropulsada)',
+    'MsSs: descenso, aducción, rotación interna, flexopronación': 'Cadena de Flexión (Retropulsada)',
+    'Elevación de la esternoclavicular': 'Cadena de Flexión (Retropulsada)',
+    'Flexión de MsIs': 'Cadena de Flexión (Retropulsada)',
+    'Cierre de mandíbula': 'Cadena de Flexión (Retropulsada)',
+    'Cierre de costillas': 'Cadena de Flexión (Retropulsada)',
+    'Proyección anterior de la cabeza': 'Cadena de Flexión (Retropulsada)',
+    'Hipercifosis': 'Cadena de Flexión (Retropulsada)',
+    'Rectificación lumbar': 'Cadena de Flexión (Retropulsada)',
+    'Valgo de rodilla': 'Cadena de Flexión (Retropulsada)',
+    'Hallux valgus': 'Cadena de Flexión (Retropulsada)',
+    'Cuerpo posteriorizado': 'Cadena de Flexión (Retropulsada)',
+
+    // CADENA DE EXTENSIÓN (ANTEPULSADA)
+    'Cuerpo anteriorizado': 'Cadena de Extensión (Antepulsada)',
+    'Recurvatum de tibia': 'Cadena de Extensión (Antepulsada)',
+    'Sacro horizontal': 'Cadena de Extensión (Antepulsada)',
+    'Dorso plano': 'Cadena de Extensión (Antepulsada)',
+    'Rectificación cervical': 'Cadena de Extensión (Antepulsada)',
+    'Báscula posterior de la cabeza': 'Cadena de Extensión (Antepulsada)',
+    'Esternón horizontal': 'Cadena de Extensión (Antepulsada)',
+    'Apertura de mandíbula': 'Cadena de Extensión (Antepulsada)',
+    'Anteversión pélvica': 'Cadena de Extensión (Antepulsada)',
+    'Hiperlordosis baja': 'Cadena de Extensión (Antepulsada)',
+    'Extensión de MsIs': 'Cadena de Extensión (Antepulsada)',
+    'Pie cavo': 'Cadena de Extensión (Antepulsada)',
+    'Dedos en garra': 'Cadena de Extensión (Antepulsada)',
+    'MsSs: descenso, rotación externa, abducción': 'Cadena de Extensión (Antepulsada)',
+    'Apertura de costillas': 'Cadena de Extensión (Antepulsada)',
+    'Rotación interna de cadera y pierna': 'Cadena de Extensión (Antepulsada)',
+    'Ascenso de rótula': 'Cadena de Extensión (Antepulsada)',
+
+    // CADENA DE APERTURA
+    'Pie en eversión (supino)': 'Cadena de Apertura',
+    'Rodillas ligera flexión': 'Cadena de Apertura',
+    'Quintus varus': 'Cadena de Apertura',
+    'Anteproyección de pelvis': 'Cadena de Apertura',
+    'Nutación del ilíaco (báscula posterior)': 'Cadena de Apertura',
+    'Isquiones separados': 'Cadena de Apertura',
+    'MsSs: ascenso, abducción, rotación externa, supinación': 'Cadena de Apertura',
+    'Caderas en rotación externa': 'Cadena de Apertura',
+    'Anteproyección del cuello': 'Cadena de Apertura',
+    'Báscula anterior del tronco': 'Cadena de Apertura',
+    'Varo de rodilla': 'Cadena de Apertura',
+    'Varo del calcáneo': 'Cadena de Apertura',
+    'Hipercifosis alta': 'Cadena de Apertura',
+
+    // CADENA DE CIERRE
+    'MsSs: descenso, aducción, rotación interna, flexo-pronación': 'Cadena de Cierre',
+    'Clavículas en V': 'Cadena de Cierre',
+    'Parrilla costal cerrada (cierre costal)': 'Cadena de Cierre',
+    'Despegue del borde espinal de los omóplatos': 'Cadena de Cierre',
+    'Contranutación de ilíacos (báscula anterior)': 'Cadena de Cierre',
+    'Flexo de la coxofemoral': 'Cadena de Cierre',
+    'Flexum rodilla': 'Cadena de Cierre',
+    'Valgo de calcáneo': 'Cadena de Cierre',
+    'Pie plano (pronación)': 'Cadena de Cierre',
+
+    // CADENA DE INSPIRACIÓN
+    'Rectitud cervical': 'Cadena de Inspiración',
+    'Inversión cervical': 'Cadena de Inspiración',
+    'Tórax en inspiración': 'Cadena de Inspiración',
+    'Piernas alineadas': 'Cadena de Inspiración',
+    'Cuádriceps tónicos': 'Cadena de Inspiración',
+    'Pelvis posteriorizado': 'Cadena de Inspiración',
+    'Hiperlordosis lumbar': 'Cadena de Inspiración',
+    'Recurvatum de fémur': 'Cadena de Inspiración',
+
+    // CADENA DE ESPIRACIÓN
+    'Recorvatum pasivo': 'Cadena de Espiración',
+    'Pelvis anteriorizada': 'Cadena de Espiración',
+    'Tórax trasladado posteriormente': 'Cadena de Espiración',
+    'Psoas distendido': 'Cadena de Espiración',
+    'Pie en pronación': 'Cadena de Espiración'
+  };
+
+  const chainCounts = {};
+  selectedDeviations.forEach(deviation => {
+    const chain = deviationToChain[deviation];
+    if (chain) {
+      chainCounts[chain] = (chainCounts[chain] || 0) + 1;
+    }
+  });
+
+  let predominantChain = null;
+  let maxCount = 0;
+  let totalDeviations = selectedDeviations.length;
+
+  Object.entries(chainCounts).forEach(([chain, count]) => {
+    if (count > maxCount) {
+      maxCount = count;
+      predominantChain = chain;
+    }
+  });
+
+  const predominancePercentage = totalDeviations > 0 ? (maxCount / totalDeviations) * 100 : 0;
+  
+  let predominanceLevel = 'Leve';
+  if (predominancePercentage >= 70) {
+    predominanceLevel = 'Muy Alta';
+  } else if (predominancePercentage >= 50) {
+    predominanceLevel = 'Alta';
+  } else if (predominancePercentage >= 30) {
+    predominanceLevel = 'Moderada';
+  }
+
+  return {
+    predominantChain,
+    predominanceLevel,
+    predominancePercentage: predominancePercentage.toFixed(1),
+    chainCounts,
+    totalDeviations,
+    maxCount
+  };
+};
+
+// PASO 2: Dentro de la función handleExportPDF, después de la sección de ANÁLISIS POSTURAL
+// y antes de la sección de IMÁGENES, agregar esta nueva sección:
+
+// ==================== ANÁLISIS DE CADENAS POSTURALES ====================
+const selectedDeviations = deviations || [];
+if (selectedDeviations && selectedDeviations.length > 0) {
+    console.log('Agregando análisis de cadenas posturales...');
+  
+const chainAnalysis = analyzePosturalChains(selectedDeviations);
+  
+  doc.setFontSize(12);
+  doc.setFont('helvetica', 'bold');
+  doc.text('ANÁLISIS DE CADENAS POSTURALES', 14, currentY);
+  currentY += 10;
+
+  doc.setFontSize(10);
+  doc.setFont('helvetica', 'normal');
+  
+  if (chainAnalysis.predominantChain) {
+    // Resultado principal
+    doc.setFontSize(11);
+    doc.setFont('helvetica', 'bold');
+    doc.setTextColor(45, 123, 182);
+    doc.text(`PATRÓN PREDOMINANTE: ${chainAnalysis.predominantChain}`, 14, currentY);
+    currentY += 8;
+    
+    doc.setFontSize(9);
+    doc.setFont('helvetica', 'normal');
+    doc.setTextColor(0, 0, 0);
+    doc.text(`Nivel de Predominancia: ${chainAnalysis.predominanceLevel} (${chainAnalysis.predominancePercentage}%)`, 14, currentY);
+    currentY += 6;
+    
+    doc.text(`Alteraciones de esta cadena: ${chainAnalysis.maxCount} de ${chainAnalysis.totalDeviations} total`, 14, currentY);
+    currentY += 10;
+    
+    // Descripción del patrón
+    const descriptions = {
+      'Cadena de Flexión (Retropulsada)': 'Patrón flexor global con desplazamiento posterior del centro de gravedad. Indica predominio del patrón flexor con tendencia al colapso postural.',
+      'Cadena de Extensión (Antepulsada)': 'Patrón extensor global con desplazamiento anterior del centro de gravedad. Indica predominio del patrón extensor con compensaciones anteriores.',
+      'Cadena de Apertura': 'Patrón de separación y rotación externa de estructuras corporales. Indica predominio del patrón de apertura con dispersión energética.',
+      'Cadena de Cierre': 'Patrón de aproximación y rotación interna de estructuras corporales. Indica predominio del patrón de cierre con compresión estructural.',
+      'Cadena de Inspiración': 'Patrón relacionado con la fase inspiratoria del ciclo respiratorio. Indica bloqueo en fase inspiratoria con restricción respiratoria.',
+      'Cadena de Espiración': 'Patrón relacionado con la fase espiratoria del ciclo respiratorio. Indica bloqueo en fase espiratoria con limitación ventilatoria.'
+    };
+    
+    const description = descriptions[chainAnalysis.predominantChain] || 'Patrón postural específico que requiere abordaje dirigido.';
+    const descriptionLines = doc.splitTextToSize(description, pageWidth - 28);
+    doc.text(descriptionLines, 14, currentY);
+    currentY += descriptionLines.length * 4 + 8;
+    
+    // Distribución por cadenas (si hay múltiples)
+    if (Object.keys(chainAnalysis.chainCounts).length > 1) {
+      doc.setFont('helvetica', 'bold');
+      doc.text('Distribución por Cadenas:', 14, currentY);
+      currentY += 6;
+      
+      doc.setFont('helvetica', 'normal');
+      Object.entries(chainAnalysis.chainCounts)
+        .sort(([,a], [,b]) => b - a)
+        .forEach(([chain, count]) => {
+          const percentage = ((count / chainAnalysis.totalDeviations) * 100).toFixed(1);
+          const isMain = chain === chainAnalysis.predominantChain;
+          
+          if (isMain) {
+            doc.setFont('helvetica', 'bold');
+            doc.setTextColor(45, 123, 182);
+          } else {
+            doc.setFont('helvetica', 'normal');
+            doc.setTextColor(100, 100, 100);
+          }
+          
+          doc.text(`• ${chain}: ${count} alteración${count !== 1 ? 'es' : ''} (${percentage}%)`, 20, currentY);
+          currentY += 5;
+        });
+      
+      doc.setTextColor(0, 0, 0);
+      currentY += 5;
+    }
+    
+    // Interpretación clínica
+    doc.setFont('helvetica', 'bold');
+    doc.setTextColor(45, 123, 182);
+    doc.text('INTERPRETACIÓN CLÍNICA:', 14, currentY);
+    currentY += 6;
+    
+    doc.setFont('helvetica', 'normal');
+    doc.setTextColor(0, 0, 0);
+    
+    let interpretation = '';
+    if (chainAnalysis.predominancePercentage >= 70) {
+      interpretation = `Patrón Puro: La alta concentración de alteraciones (${chainAnalysis.predominancePercentage}%) en una sola cadena indica un patrón postural bien definido que requiere abordaje terapéutico específico y dirigido.`;
+    } else if (chainAnalysis.predominancePercentage >= 50) {
+      interpretation = `Patrón Mixto: Aunque existe una cadena predominante (${chainAnalysis.predominancePercentage}%), se observan compensaciones en otras cadenas que deben considerarse en el plan de tratamiento integral.`;
+    } else {
+      interpretation = `Patrón Complejo: Las alteraciones están distribuidas entre múltiples cadenas (${chainAnalysis.predominancePercentage}% predominancia), sugiriendo un patrón postural complejo que requiere evaluación y abordaje multidimensional.`;
+    }
+    
+    const interpretationLines = doc.splitTextToSize(interpretation, pageWidth - 28);
+    doc.text(interpretationLines, 14, currentY);
+    currentY += interpretationLines.length * 4 + 10;
+    
+    // Recomendaciones terapéuticas
+    doc.setFont('helvetica', 'bold');
+    doc.setTextColor(40, 167, 69);
+    doc.text('RECOMENDACIONES TERAPÉUTICAS:', 14, currentY);
+    currentY += 6;
+    
+    doc.setFont('helvetica', 'normal');
+    doc.setTextColor(0, 0, 0);
+    
+    const treatments = {
+      'Cadena de Flexión (Retropulsada)': 'Fortalecimiento de músculos extensores, estiramiento de flexores, reeducación postural con énfasis en la extensión vertebral y reeducación del patrón respiratorio.',
+      'Cadena de Extensión (Antepulsada)': 'Fortalecimiento de flexores profundos, estiramiento de extensores superficiales, trabajo de estabilización central y control motor.',
+      'Cadena de Apertura': 'Centralización corporal, fortalecimiento de músculos internos y estabilizadores, trabajo de integración y cohesión postural.',
+      'Cadena de Cierre': 'Apertura de espacios articulares, fortalecimiento de músculos externos, descompresión estructural y movilización dirigida.',
+      'Cadena de Inspiración': 'Reeducación respiratoria enfocada en la espiración, relajación de músculos inspiradores, movilización costal y diafragmática.',
+      'Cadena de Espiración': 'Fortalecimiento de músculos inspiratorios, expansión torácica, trabajo de apertura y movilización respiratoria.'
+    };
+    
+    const treatment = treatments[chainAnalysis.predominantChain] || 'Abordaje terapéutico individualizado según los hallazgos específicos del patrón postural identificado.';
+    const treatmentLines = doc.splitTextToSize(treatment, pageWidth - 28);
+    doc.text(treatmentLines, 14, currentY);
+    currentY += treatmentLines.length * 4 + 15;
+    
+  } else {
+    doc.text('No se identificó un patrón específico de cadenas posturales.', 14, currentY);
+    currentY += 10;
+  }
+}
+
 function ExportPDFButton({ images, patientData, deviations }) {
   const [isGenerating, setIsGenerating] = useState(false);
 
