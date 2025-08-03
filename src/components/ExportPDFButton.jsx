@@ -115,33 +115,86 @@ function ExportPDFButton({ images, patientData, deviations }) {
         currentY += obsLines.length * 5 + 10;
       }
 
-      // ==================== ALTERACIONES ====================
-      console.log('Agregando análisis postural...');
-      doc.setFontSize(12);
-      doc.setFont('helvetica', 'bold');
-      doc.text('ANÁLISIS POSTURAL', 14, currentY);
-      currentY += 10;
+// ==================== ANÁLISIS POSTURAL CON CATEGORÍAS ====================
+console.log('Agregando análisis postural...');
+doc.setFontSize(12);
+doc.setFont('helvetica', 'bold');
+doc.text('ANÁLISIS POSTURAL POR CADENAS MUSCULARES', 14, currentY);
+currentY += 10;
 
-      doc.setFontSize(10);
-      doc.setFont('helvetica', 'normal');
+doc.setFontSize(10);
+doc.setFont('helvetica', 'normal');
 
-      if (deviations && deviations.length > 0) {
-        doc.text('Alteraciones identificadas:', 14, currentY);
-        currentY += 8;
+if (deviations && deviations.length > 0) {
+  doc.text('Alteraciones identificadas por categorías:', 14, currentY);
+  currentY += 8;
 
-        deviations.forEach((deviation, index) => {
-          doc.text(`${index + 1}. ${deviation}`, 20, currentY);
-          currentY += 5;
-        });
-        currentY += 5;
-      } else {
-        doc.setTextColor(0, 120, 0);
-        doc.text('✓ No se identificaron alteraciones posturales significativas.', 14, currentY);
-        currentY += 8;
-        doc.setTextColor(0, 0, 0);
-        doc.text('El paciente presenta una alineación postural normal.', 14, currentY);
-        currentY += 10;
-      }
+  // Función simple para obtener categoría
+  const getCategory = (deviation) => {
+    // Cadena de Flexión
+    if (deviation.includes('Cifosis') || deviation.includes('Hipercifosis') || 
+        deviation.includes('Rectificación lumbar') || deviation.includes('Retroversión') ||
+        deviation.includes('Valgo de rodilla') || deviation.includes('posteriorizado')) {
+      return 'Cadena de Flexión (Retropulsada)';
+    }
+    // Cadena de Extensión  
+    if (deviation.includes('Anteversión') || deviation.includes('Hiperlordosis') ||
+        deviation.includes('Rectificación cervical') || deviation.includes('anteriorizado') ||
+        deviation.includes('Pie cavo')) {
+      return 'Cadena de Extensión (Antepulsada)';
+    }
+    // Cadena de Apertura
+    if (deviation.includes('Varo') || deviation.includes('Apertura') ||
+        deviation.includes('rotación externa')) {
+      return 'Cadena de Apertura';
+    }
+    // Cadena de Cierre
+    if (deviation.includes('Pie plano') || deviation.includes('pronación') ||
+        deviation.includes('Cierre') || deviation.includes('aducción')) {
+      return 'Cadena de Cierre';
+    }
+    // Por defecto
+    return 'Múltiples Cadenas';
+  };
+
+  deviations.forEach((deviation, index) => {
+    const category = getCategory(deviation);
+    
+    // Mostrar alteración con su categoría
+    doc.setFont('helvetica', 'normal');
+    doc.text(`${index + 1}. ${deviation}`, 20, currentY);
+    currentY += 4;
+    
+    // Mostrar categoría en color
+    doc.setFont('helvetica', 'italic');
+    doc.setTextColor(45, 123, 182);
+    doc.text(`    → ${category}`, 25, currentY);
+    doc.setTextColor(0, 0, 0);
+    currentY += 6;
+  });
+  
+  currentY += 10;
+  
+  // Interpretación simple
+  doc.setFillColor(248, 249, 250);
+  doc.rect(14, currentY, pageWidth - 28, 15, 'F');
+  
+  doc.setFontSize(9);
+  doc.setFont('helvetica', 'bold');
+  doc.setTextColor(40, 167, 69);
+  doc.text('INTERPRETACIÓN: Las alteraciones identificadas sugieren patrones específicos', 18, currentY + 8);
+  doc.text('que requieren abordaje terapéutico dirigido a reequilibrar las cadenas musculares.', 18, currentY + 12);
+  doc.setTextColor(0, 0, 0);
+  
+  currentY += 20;
+} else {
+  doc.setTextColor(0, 120, 0);
+  doc.text('✓ No se identificaron alteraciones posturales significativas.', 14, currentY);
+  currentY += 8;
+  doc.setTextColor(0, 0, 0);
+  doc.text('El paciente presenta una alineación postural normal.', 14, currentY);
+  currentY += 10;
+}
 
       // ==================== IMÁGENES CON ANÁLISIS DE IA ====================
       const imagesList = images || {};
